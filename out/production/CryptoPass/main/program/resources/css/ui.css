@@ -2,8 +2,14 @@
     -fx-background-color: #FAFAFA;
 }
 
+#menuBar {
+    -fx-background-color: #EAEAEA;
+}
+
 .button {
     -fx-cursor: hand;
+    -fx-font-family: "Sergeo UI";
+    -fx-font-size: 16px;
 }
 
 .textField {
