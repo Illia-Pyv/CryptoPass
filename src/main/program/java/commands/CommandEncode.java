@@ -24,9 +24,9 @@ public class CommandEncode extends Command {
         if (matchesRegex(parameters) != -1) {
             return enigma.encode(parameters);
         } else {
+            return null;
             // TODO make an error exception with the error Errors.InvalidParameters
         }
-        return null;
     }
 
 }

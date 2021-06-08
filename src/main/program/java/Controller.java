@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.program.java.constants.Errors;
 import main.program.java.constants.Messages;
 
 import java.awt.datatransfer.StringSelection;
@@ -28,9 +29,13 @@ public class Controller {
     private static final int CHAR_LIMIT = 100;
 
     public void generatePassword(ActionEvent e)  {
-        String result = "";
-        result = encode.execute(inputField.getText());
-        resultField.setText(result);
+        String input = inputField.getText();
+        String result = encode.execute(input);
+        if (result == null) {
+            notificationLabelFade(Errors.INVALID_INPUT);
+        } else {
+            resultField.setText(result);
+        }
     }
 
     public void copy(ActionEvent e) {
@@ -48,7 +53,7 @@ public class Controller {
         } else {
             displayText = Messages.NOT_COPIED;
         }
-        copiedLabelFade(displayText);
+        notificationLabelFade(displayText);
     }
 
     public void checkValidInput() {
@@ -74,8 +79,7 @@ public class Controller {
         characterCount.setText(labelText);
     }
 
-    // TODO finetune animation
-    private void copiedLabelFade(String displayText) {
+    private void notificationLabelFade(String displayText) {
         notification.setText(displayText);
         FadeTransition fadeIn = new FadeTransition();
         fadeIn.setNode(notification);
