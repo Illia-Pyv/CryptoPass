@@ -45,6 +45,11 @@ public final class Regex {
     public static final String NEWLINE = "\n";
 
     /**
+     * This regex describes all characters on the keyboard and it does not matter in which amount.
+     */
+    public static final String ALL_CHARS = ".+";
+
+    /**
      * This regex describes the position of the input characters into which rotor pin they go into.
      */
     public static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 !?;:.,-_#)(|^][@$%&=~+*`";

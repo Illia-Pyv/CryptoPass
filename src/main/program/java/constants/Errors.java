@@ -17,8 +17,7 @@ public final class Errors {
         /**
          * This error message is displayed if no more characters can be entered into the input field.
          */
-        public static final String TOO_MANY_PARAMETERS = "Too many characters!";
-
+        public static final String TOO_MANY_PARAMETERS = "Input too big!";
 
         // Utility classes have a private constructor.
         private Errors() {

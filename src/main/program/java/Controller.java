@@ -3,16 +3,15 @@ package main.program.java;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.util.Duration;
+import main.program.java.commands.CommandCopy;
 import main.program.java.commands.CommandEncode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import main.program.java.constants.Messages;
+import main.program.java.constants.Errors;
 
-import java.awt.datatransfer.StringSelection;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
+import java.io.IOException;
 
 public class Controller {
 
@@ -25,30 +24,24 @@ public class Controller {
     @FXML
     private Label notification;
     private CommandEncode encode = new CommandEncode();
+    private CommandCopy copy = new CommandCopy();
     private static final int CHAR_LIMIT = 100;
 
     public void generatePassword(ActionEvent e)  {
+        String input = inputField.getText();
         String result = "";
-        result = encode.execute(inputField.getText());
+        try {
+            result = encode.execute(input);
+        } catch (IOException exception) {
+            notificationLabelFade(exception.getMessage());
+        }
         resultField.setText(result);
     }
 
     public void copy(ActionEvent e) {
         String myString = resultField.getText();
-        String displayText = "";
-        if (myString != null) {
-            if (myString.equals("")) {
-                displayText = Messages.NOT_COPIED;
-            } else {
-                StringSelection stringSelection = new StringSelection(myString);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-                displayText = Messages.COPIED;
-            }
-        } else {
-            displayText = Messages.NOT_COPIED;
-        }
-        copiedLabelFade(displayText);
+        String displayText = copy.execute(myString);
+        notificationLabelFade(displayText);
     }
 
     public void checkValidInput() {
@@ -60,11 +53,12 @@ public class Controller {
             }
             inputField.setText(hundredChars);
             inputField.positionCaret(textInput.length());
+            notificationLabelFade(Errors.TOO_MANY_PARAMETERS);
         }
-        updateLabelText(textInput.length());
+        updateCharacterCountLabelText(textInput.length());
     }
 
-    private void updateLabelText(int textLength) {
+    private void updateCharacterCountLabelText(int textLength) {
         String labelText = "/" + CHAR_LIMIT;
         if (textLength > CHAR_LIMIT) {
             labelText = CHAR_LIMIT + labelText;
@@ -74,8 +68,7 @@ public class Controller {
         characterCount.setText(labelText);
     }
 
-    // TODO finetune animation
-    private void copiedLabelFade(String displayText) {
+    private void notificationLabelFade(String displayText) {
         notification.setText(displayText);
         FadeTransition fadeIn = new FadeTransition();
         fadeIn.setNode(notification);

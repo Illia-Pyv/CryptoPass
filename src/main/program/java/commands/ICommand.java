@@ -1,27 +1,26 @@
 package main.program.java.commands;
 
+import java.io.IOException;
+
 /**
  * This class specifies how the command classes are to be structured.
  * 
  * @author Illia Pyvovar
  * @version 1.0
  */
-public interface CommandMethods {
+public interface ICommand {
 
     /**
      * This method executes the function that the command that called this method
      * should perform.
-     * 
-     * @param enigma this is the game Manager object that is needed to execute
-     *                    the command or else it cannot access the methods in the
-     *                    logic of this program
+     *
      * @param parameters  the parameters that the command should parse and execute
      * @return Returns a result of the type Result for easier processing of the
      *         output
-     * @throws InvalidParametersException Throws an exception if the user input was
+     * @throws IOException Throws an exception if the user input was
      *                                    wrong
      */
-    String execute(String parameters);
+    String execute(String parameters) throws IOException;
 
     /**
      * This method sets the multiple regular expressions if needed to store
