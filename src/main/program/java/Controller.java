@@ -48,7 +48,7 @@ public class Controller {
         notificationLabelFade(displayText);
     }
 
-    public void checkValidInputLength(ActionEvent e) {
+    public void checkValidInputLength() {
         String textInput = inputField.getText();
         String hundredChars = "";
         if (textInput.length() >= CHAR_LIMIT) {
