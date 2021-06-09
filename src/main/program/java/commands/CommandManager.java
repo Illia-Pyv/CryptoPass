@@ -1,6 +1,8 @@
 package main.program.java.commands;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class manages all of the commands that are needed for further usage of
@@ -11,35 +13,25 @@ import java.util.ArrayList;
  */
 public class CommandManager {
 
-    private ArrayList<Command> commandList = new ArrayList<>();
+    private HashMap<Commands, ICommand> commandList = new HashMap<>();
 
     /**
      * This is the constructor of this class. It puts all of the commands into the
      * commandList when this object is created.
      */
     public CommandManager() {
-        commandList.add(new CommandCopy());
-        commandList.add(new CommandEncode());
+        commandList.put(Commands.Copy, new CommandCopy());
+        commandList.put(Commands.Encode, new CommandEncode());
     }
 
-    /**
-     * This method returns the size of the list that contains all of the commands.
-     * 
-     * @return Returns the size of the list that contains the commands as an integer
-     */
-    public int size() {
-        return commandList.size();
+    public String run(String parameters,Commands command) throws IOException {
+        String result = "";
+        result = commandList.get(command).execute(parameters);
+        return result;
     }
 
-    /**
-     * This method method returns a command that at a certain position 'index'.
-     * 
-     * @param index the value that represents at which position in the list the
-     *              command should be gotten from
-     * @return Returns the command that is searched for if it exists in the command
-     *         list
-     */
-    public Command getCommandFromList(int index) {
-        return commandList.get(index);
+    public enum Commands{
+        Encode,
+        Copy
     }
 }

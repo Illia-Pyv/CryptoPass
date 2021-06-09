@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/ui.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.program.java.Controller">
    <children>
-      <TextField fx:id="inputField" focusTraversable="false" layoutX="50.0" layoutY="97.0" onAction="#generatePassword" onKeyTyped="#checkValidInput" prefHeight="32.0" prefWidth="400.0" promptText="Enter to generate Password" styleClass="textField" AnchorPane.leftAnchor="50.0">
+      <TextField fx:id="inputField" focusTraversable="false" layoutX="50.0" layoutY="97.0" onAction="#generatePassword" onKeyTyped="#checkValidInputLength" prefHeight="32.0" prefWidth="400.0" promptText="Enter to generate Password" styleClass="textField" AnchorPane.leftAnchor="50.0">
          <font>
             <Font size="14.0" />
          </font>

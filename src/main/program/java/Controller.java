@@ -3,12 +3,12 @@ package main.program.java;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.util.Duration;
-import main.program.java.commands.CommandCopy;
-import main.program.java.commands.CommandEncode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.program.java.commands.CommandManager;
+import main.program.java.commands.CommandManager.Commands;
 import main.program.java.constants.Errors;
 
 import java.io.IOException;
@@ -23,15 +23,14 @@ public class Controller {
     private Label characterCount;
     @FXML
     private Label notification;
-    private CommandEncode encode = new CommandEncode();
-    private CommandCopy copy = new CommandCopy();
+    private final CommandManager command = new CommandManager();
     private static final int CHAR_LIMIT = 100;
 
     public void generatePassword(ActionEvent e)  {
         String input = inputField.getText();
         String result = "";
         try {
-            result = encode.execute(input);
+            result = command.run(input, Commands.Encode);
         } catch (IOException exception) {
             notificationLabelFade(exception.getMessage());
         }
@@ -39,12 +38,17 @@ public class Controller {
     }
 
     public void copy(ActionEvent e) {
-        String myString = resultField.getText();
-        String displayText = copy.execute(myString);
+        String input = resultField.getText();
+        String displayText = "";
+        try {
+            displayText = command.run(input, Commands.Copy);
+        } catch (IOException exception) {
+            displayText = exception.getMessage();
+        }
         notificationLabelFade(displayText);
     }
 
-    public void checkValidInput() {
+    public void checkValidInputLength(ActionEvent e) {
         String textInput = inputField.getText();
         String hundredChars = "";
         if (textInput.length() >= CHAR_LIMIT) {
