@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Illia Pyvovar
  * @version 1.0
  */
-public abstract class Command implements CommandMethods {
+public abstract class Command implements ICommand {
 
     private ArrayList<String> parameterRegex = new ArrayList<>();
     private String commandName = "";

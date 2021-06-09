@@ -18,7 +18,7 @@ public class CommandManager {
      * commandList when this object is created.
      */
     public CommandManager() {
-        commandList.add(new CommandHelp());
+        commandList.add(new CommandCopy());
         commandList.add(new CommandEncode());
     }
 

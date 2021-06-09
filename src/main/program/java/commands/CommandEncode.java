@@ -1,11 +1,13 @@
 package main.program.java.commands;
 
+import main.program.java.constants.Errors;
 import main.program.java.core.Enigma;
 import main.program.java.constants.Regex;
 
+import java.io.IOException;
+
 public class CommandEncode extends Command {
 
-    private static final String COMMAND_NAME = "encode";
     private static final String PARAMETER_REGEX = Regex.INPUT_CHARACTERS;
 
     /**
@@ -13,19 +15,17 @@ public class CommandEncode extends Command {
      * well as the regular expression string.
      */
     public CommandEncode() {
-        setCommandName(COMMAND_NAME);
         setParameterRegex(PARAMETER_REGEX);
     }
 
     @Override
-    public String execute(String parameters) {
+    public String execute(String parameters) throws IOException {
         Enigma enigma = new Enigma();
 
         if (matchesRegex(parameters) != -1) {
             return enigma.encode(parameters);
         } else {
-            return null;
-            // TODO make an error exception with the error Errors.InvalidParameters
+            throw new IOException(Errors.INVALID_INPUT);
         }
     }
 
