@@ -19,6 +19,8 @@ public class Rotor {
         this.head = position;
     }
 
+    public int getHead() { return this.head; }
+
     public long getAmountOfCharacters() {
         return rotorCharacters.get(IN).length();
     }

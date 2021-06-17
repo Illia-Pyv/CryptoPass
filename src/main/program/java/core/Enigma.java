@@ -2,38 +2,51 @@ package main.program.java.core;
 
 import main.program.java.constants.Regex;
 
-import java.util.ArrayList;
-
 public class Enigma {
 
     private final Rotor r1;
     private final Rotor r2;
     private final Rotor r3;
-    private static final int CONSTANT = 42;
 
     // these following parameters are used for the rotation of the rotors
     private int r1Count = 0;
     private int r2Count = 0;
     private int maxCount = 2;
-    private static final int MAX_DEPTH = 2000;
-    private static final int PASS_LENGTH = 16;
-    private int depth;
 
+    /**
+     * This is the constructor of this class and it creates the three instances of the Rotor class.
+     */
     public Enigma() {
         r1 = new Rotor(Regex.ROTOR1_CHARACTERS_IN, Regex.ROTOR1_CHARACTERS_OUT);
         r2 = new Rotor(Regex.ROTOR2_CHARACTERS_IN, Regex.ROTOR2_CHARACTERS_OUT);
         r3 = new Rotor(Regex.ROTOR3_CHARACTERS_IN, Regex.ROTOR3_CHARACTERS_OUT);
-        this.depth = 0;
     }
 
-    public String encode(String parameters) {
+    public String encode(String parameters, int posR1, int posR2, int posR3) {
         String result = "";
-        r1.setHead(calculatePositionR1(parameters));
-        r2.setHead(calculatePositionR2(parameters));
-        r3.setHead(calculatePositionR3(parameters));
+        r1.setHead(posR1);
+        r2.setHead(posR2);
+        r3.setHead(posR3);
 
         result = encodeWord(parameters);
         return result;
+    }
+
+    public int getRotorHeadPos(Rotors rotor) {
+        switch (rotor) {
+            case R1: {
+                return r1.getHead();
+            }
+            case R2: {
+                return r2.getHead();
+            }
+            case R3: {
+                return r3.getHead();
+            }
+            default: {
+                return 0;
+            }
+        }
     }
 
     private String encodeWord(String parameters) {
@@ -41,62 +54,7 @@ public class Enigma {
         for (int i = 0; i < parameters.length(); i++) {
             result += String.format("%s", encodeCharacter(parameters.charAt(i)));
         }
-        result = result + calculateSuffix(parameters);
-        if (!checkIfDivers(result)) {
-            if (depth == MAX_DEPTH) {
-                return result;
-            }
-            depth++;
-            return encodeWord(result);
-        }
         return result;
-    }
-
-    private String calculateSuffix(String parameters) {
-        String suffix = "";
-        while (!((parameters + suffix).length() >= PASS_LENGTH)) {
-            for (int i = 0; i < parameters.length(); i++) {
-                suffix += parameters.charAt(i);
-                if ((parameters + suffix).length() == PASS_LENGTH) {
-                    return suffix;
-                }
-            }
-        }
-        return suffix;
-    }
-
-    private int calculatePositionR1(String parameters) {
-        long num = parameters.hashCode();
-        if (num < 0) {
-            num = num * (-1);
-        }
-        return modulo(num, r1.getAmountOfCharacters());
-    }
-
-    private int calculatePositionR2(String parameters) {
-        int num;
-        int temp = 0;
-        for (int i = 0; i < parameters.length(); i++) {
-            temp += parameters.charAt(i);
-        }
-        num = parameters.length() * temp;
-        return modulo(num, r2.getAmountOfCharacters());
-    }
-
-    private int calculatePositionR3(String parameters) {
-        int result = 1;
-        long num;
-        char character;
-        ArrayList<Character> list = new ArrayList<>();
-        for (int i = 0; i < parameters.length(); i++) {
-            character = parameters.charAt(i);
-            if (!list.contains(character)) {
-                result++;
-                list.add(character);
-            }
-        }
-        num = parameters.length() * result * CONSTANT;
-        return modulo(num, r3.getAmountOfCharacters());
     }
 
     private char encodeCharacter(char character) {
@@ -133,13 +91,6 @@ public class Enigma {
         }
     }
 
-    private int modulo(long num1, long mod) {
-        long result;
-        long temp = num1 / mod;
-        result = num1 - (mod * temp);
-        return (int)result;
-    }
-
     private int getPositionOfInputChar(char character) {
         String allChars = Regex.CHARACTERS;
         for (int i = 0; i < allChars.length(); i++) {
@@ -158,29 +109,18 @@ public class Enigma {
         return rotor.getOutCharactersRelativePos(rotor.getOutChar(rotor.getCharacterByPosition(inputPosition, Rotor.OUT), Rotor.OUT),Rotor.OUT);
     }
 
-    private boolean checkIfDivers(String encodedMessage) {
-        ArrayList<Character> numbers = new ArrayList<Character>();
-        ArrayList<Character> special = new ArrayList<Character>();
-        ArrayList<Character> smallLetters = new ArrayList<Character>();
-        ArrayList<Character> bigLetters = new ArrayList<Character>();
-        int diversityLevel = encodedMessage.length() / 4;
-        for (int i = 0; i < encodedMessage.length(); i++) {
-            char c = encodedMessage.charAt(i);
-            if (getPositionOfInputChar(c) < 26) {
-                smallLetters.add(c);
-            } else if (getPositionOfInputChar(c) < 52) {
-                bigLetters.add(c);
-            } else if (getPositionOfInputChar(c) < 62) {
-                numbers.add(c);
-            } else {
-                special.add(c);
-            }
-        }
-        if (numbers.size() < diversityLevel || special.size() < diversityLevel || smallLetters.size() < diversityLevel
-                || bigLetters.size() < diversityLevel) {
-            return false;
-        } else {
-            return true;
-        }
+    public enum Rotors {
+        /**
+         * Rotor 1
+         */
+        R1,
+        /**
+         * Rotor 2
+         */
+        R2,
+        /**
+         * Rotor 3
+         */
+        R3
     }
 }
