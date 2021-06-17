@@ -11,27 +11,11 @@ import java.util.ArrayList;
 public abstract class Command implements ICommand {
 
     private ArrayList<String> parameterRegex = new ArrayList<>();
-    private String commandName = "";
     private RegexMatcher matcher = new RegexMatcher();
 
     @Override
     public void setParameterRegex(String parameterRegex) {
         this.parameterRegex.add(parameterRegex);
-    }
-
-    @Override
-    public void setCommandName(String commandName) {
-        this.commandName = commandName;
-    }
-
-    @Override
-    public String getParameterRegex(int index) {
-        return this.parameterRegex.get(index);
-    }
-
-    @Override
-    public String getCommandName() {
-        return this.commandName;
     }
 
     /**

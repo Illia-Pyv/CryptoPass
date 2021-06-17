@@ -10,16 +10,6 @@ package main.program.java.constants;
 public final class Regex {
 
     /**
-     * This character marks the beginning of a regex string.
-     */
-    public static final String START = "^";
-
-    /**
-     * This character marks the end of a regex string.
-     */
-    public static final String END = "$";
-
-    /**
      * This regex symbolizes a space in regex notation.
      */
     public static final String SPACE = " ";
@@ -35,19 +25,24 @@ public final class Regex {
     public static final String COMMA = ",";
 
     /**
-     * This regex represents the symbols used to separate the user input.
+     * This regex describes all characters on the keyboard and it does not matter in which amount.
      */
-    public static final String SEPERATORS = "[" + Regex.SPACE + Regex.COMMA + Regex.SEMICOLON + "]";
-
-    /**
-     * This regex indicates when a new line starts in a string.
-     */
-    public static final String NEWLINE = "\n";
+    public static final String ALL_CHARS = ".+";
 
     /**
      * This regex describes all characters on the keyboard and it does not matter in which amount.
      */
-    public static final String ALL_CHARS = ".+";
+    public static final String SMALL_LETTERS = "[a-z]";
+
+    /**
+     * This regex describes all characters on the keyboard and it does not matter in which amount.
+     */
+    public static final String CAPITAL_LETTERS = "[A-Z]";
+
+    /**
+     * This regex describes all characters on the keyboard and it does not matter in which amount.
+     */
+    public static final String NUMBERS = "[0-9]";
 
     /**
      * This regex describes the position of the input characters into which rotor pin they go into.

@@ -29,30 +29,4 @@ public interface ICommand {
      *                       command
      */
     void setParameterRegex(String parameterRegex);
-
-    /**
-     * This method sets the name of a command so that it can be accessed later on.
-     * 
-     * @param commandName the name of the command which is received as string and is
-     *                    to be set
-     */
-    void setCommandName(String commandName);
-
-    /**
-     * This method gets the parameter regex as a string which is located at the
-     * position "index" in the list of all parameters regex.
-     * 
-     * @param index the number which indicates the position in the list where the
-     *              parameter regex should be gotten from
-     * @return Returns the parameter regex as a string at the position index from
-     *         the parameter regex list
-     */
-    String getParameterRegex(int index);
-
-    /**
-     * This method gets the name of the command.
-     * 
-     * @return Returns the name of the command as a string
-     */
-    String getCommandName();
 }
