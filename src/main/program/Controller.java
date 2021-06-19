@@ -3,6 +3,7 @@ package main.program;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.program.java.constants.Messages;
 import main.program.java.constants.UUPK;
 
 import java.io.BufferedWriter;
@@ -24,6 +25,7 @@ public abstract class Controller {
         String currentDir = System.getProperty("user.dir") + "/config.txt";
         BufferedWriter writer = new BufferedWriter(new FileWriter(currentDir));
         writer.write(UUPK.getInstance("").getUUPK());
+        writer.write("\n" + Messages.WARNING);
         writer.close();
     }
 }
