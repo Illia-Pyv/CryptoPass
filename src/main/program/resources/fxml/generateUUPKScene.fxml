@@ -12,16 +12,17 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/ui.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.program.GenerateUUPKController">
    <children>
       <Label id="header" layoutX="85.0" layoutY="50.0" text="Generate UUPK" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="50.0" />
-      <Label layoutX="50.0" layoutY="128.0" text="Next you will need to write down a &quot;password&quot; which you don't need to remember. This password is only needed to create the UUPK, so the more gibberish the better." textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
+      <Label layoutX="50.0" layoutY="128.0" text="Next you will need to enter a &quot;password&quot; which you don't need to remember. This password is only needed to create the UUPK, so the more gibberish the better." textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
       <Label layoutX="50.0" layoutY="200.0" text="(At least 8 characters long and must contain at least 2 lower case, 2 upper case, 2 numbers and 2 special characters)" textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0" />
-      <TextField id="textField" layoutX="85.0" layoutY="264.0" prefHeight="31.0" prefWidth="465.0" styleClass="textField" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="260.0" />
+      <Label id="notification" fx:id="notification" alignment="CENTER" layoutX="242.0" layoutY="262.0" prefHeight="26.0" prefWidth="114.0" text="Invalid Input!" />
+      <TextField id="textField" fx:id="input" layoutX="85.0" layoutY="264.0" prefHeight="31.0" prefWidth="465.0" styleClass="textField" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="260.0" />
       <Button id="orangeButton" layoutX="250.0" layoutY="302.0" mnemonicParsing="false" onAction="#switchToYourUUPKScene" prefWidth="100.0" text="Generate" AnchorPane.bottomAnchor="50.0" />
       <Label alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="41.0" layoutY="258.0" prefHeight="35.0" prefWidth="35.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="258.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <tooltip>
-            <Tooltip autoFix="false" consumeAutoHidingEvents="false" opacity="0.8" text="Special characters: !?;:.,-_#)(|^][@$%&amp;=~+*` and the SPACE" />
+            <Tooltip autoFix="false" consumeAutoHidingEvents="false" opacity="0.8" text="Special characters: ?;,)(|$:#_=~%+*@`&amp;.^! and the SPACE" />
          </tooltip>
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">

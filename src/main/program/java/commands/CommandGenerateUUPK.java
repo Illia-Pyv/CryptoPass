@@ -19,16 +19,16 @@ public class CommandGenerateUUPK extends CommandEncode {
     @Override
     protected int calculatePosR2(String parameters) {
         time = calculateTime();
-        long uupkhash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(time)))));
-        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))))) + uupkhash;
+        long timeHash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(time)))));
+        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))))) + timeHash;
         return modulo(hash, CHARACTERS.length());
     }
 
     @Override
     protected int calculatePosR3(String parameters) {
         time = calculateTime();
-        long uupkHash = calculatePositiveHash(String.format("%s", calculatePositiveHash(time)));
-        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))) + uupkHash;
+        long timeHash = calculatePositiveHash(String.format("%s", calculatePositiveHash(time)));
+        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))) + timeHash;
         return modulo(hash, CHARACTERS.length());
     }
 

@@ -25,7 +25,14 @@ public class UUPK {
         return this.uupk;
     }
 
+    public void setUUPK(String uupk) {
+        this.uupk = uupk;
+    }
+
     public boolean isValid() {
+        if (this.uupk == null) {
+            return false;
+        }
         int length = this.uupk.length();
         int smallLetters = 0;
         int capitalLetters = 0;

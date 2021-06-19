@@ -23,14 +23,13 @@ public class CryptoPassController {
     private Label characterCount;
     @FXML
     private Label notification;
-    private final CommandManager command = new CommandManager();
     private static final int CHAR_LIMIT = 100;
 
     public void generatePassword(ActionEvent e)  {
         String input = inputField.getText();
         String result = "";
         try {
-            result = command.run(input, Commands.Encode);
+            result = CommandManager.getInstance().run(input, Commands.Encode);
         } catch (IOException exception) {
             notificationLabelFade(exception.getMessage());
         }
@@ -41,7 +40,7 @@ public class CryptoPassController {
         String input = resultField.getText();
         String displayText = "";
         try {
-            displayText = command.run(input, Commands.Copy);
+            displayText = CommandManager.getInstance().run(input, Commands.Copy);
         } catch (IOException exception) {
             displayText = exception.getMessage();
         }

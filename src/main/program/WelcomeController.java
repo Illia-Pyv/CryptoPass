@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.program.java.constants.UUPK;
 
 import java.io.IOException;
 
@@ -18,28 +19,28 @@ public class WelcomeController extends Controller {
     private Label welcome;
     @FXML
     private Label hint;
-    private boolean clicked = false;
 
-    public void welcomeLabelFade() {
-         if (!clicked) {
-             clicked = true;
-             FadeTransition fadeIn = new FadeTransition();
-             fadeIn.setNode(welcome);
-             fadeIn.setDuration(Duration.seconds(3));
-             fadeIn.setInterpolator(Interpolator.LINEAR);
-             fadeIn.setFromValue(0);
-             fadeIn.setToValue(1);
-             fadeIn.play();
+    public void initialize() {
+        welcomeLabelFade();
+    }
 
-             FadeTransition hintIn = new FadeTransition();
-             hintIn.setNode(hint);
-             hintIn.setDuration(Duration.millis(100));
-             hintIn.setInterpolator(Interpolator.LINEAR);
-             hintIn.setFromValue(0);
-             hintIn.setToValue(1);
-             hintIn.setDelay(Duration.seconds(3));
-             hintIn.play();
-        }
+    private void welcomeLabelFade() {
+        FadeTransition fadeIn = new FadeTransition();
+        fadeIn.setNode(welcome);
+        fadeIn.setDuration(Duration.seconds(3));
+        fadeIn.setInterpolator(Interpolator.LINEAR);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+
+        FadeTransition hintIn = new FadeTransition();
+        hintIn.setNode(hint);
+        hintIn.setDuration(Duration.millis(100));
+        hintIn.setInterpolator(Interpolator.LINEAR);
+        hintIn.setFromValue(0);
+        hintIn.setToValue(1);
+        hintIn.setDelay(Duration.seconds(3));
+        hintIn.play();
     }
 
     public void switchToCryptoPassScene(ActionEvent event) throws IOException {

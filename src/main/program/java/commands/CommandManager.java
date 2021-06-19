@@ -13,14 +13,23 @@ import java.util.HashMap;
 public class CommandManager {
 
     private HashMap<Commands, ICommand> commandList = new HashMap<>();
+    private static CommandManager instance;
 
     /**
      * This is the constructor of this class. It puts all of the commands into the
      * commandList when this object is created.
      */
-    public CommandManager() {
+    private CommandManager() {
         commandList.put(Commands.Copy, new CommandCopy());
         commandList.put(Commands.Encode, new CommandEncode());
+        commandList.put(Commands.GenerateUUPK, new CommandGenerateUUPK());
+    }
+
+    public static CommandManager getInstance() {
+        if (instance == null) {
+            instance = new CommandManager();
+        }
+        return instance;
     }
 
     public String run(String parameters,Commands command) throws IOException {
@@ -31,6 +40,7 @@ public class CommandManager {
 
     public enum Commands{
         Encode,
-        Copy
+        Copy,
+        GenerateUUPK
     }
 }

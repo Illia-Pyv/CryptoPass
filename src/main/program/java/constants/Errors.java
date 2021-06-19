@@ -19,6 +19,11 @@ public final class Errors {
          */
         public static final String TOO_MANY_PARAMETERS = "Input too big!";
 
+        /**
+         * This error message is displayed if the user input is too short.
+         */
+        public static final String TOO_SHORT = "Too short!";
+
         // Utility classes have a private constructor.
         private Errors() {
 
