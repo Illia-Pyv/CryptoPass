@@ -1,4 +1,4 @@
-package main.program.java;
+package main.program;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -13,7 +13,7 @@ import main.program.java.constants.Errors;
 
 import java.io.IOException;
 
-public class Controller {
+public class CryptoPassController {
 
     @FXML
     private TextField inputField;

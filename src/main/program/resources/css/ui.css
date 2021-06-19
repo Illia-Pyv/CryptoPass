@@ -2,8 +2,31 @@
     -fx-background-color: #FAFAFA;
 }
 
-#menuBar {
-    -fx-background-color: #EAEAEA;
+.label {
+    -fx-font-family: "Sergeo UI";
+    -fx-font-size: 16px;
+}
+
+#important {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+#header {
+    -fx-font-size: 24px;
+}
+
+#small {
+    -fx-font-size: 12px;
+}
+
+#backButton {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+
+#backButton:hover {
+    -fx-background-color: #E9E9E9;
 }
 
 .button {
@@ -27,20 +50,20 @@
     -fx-font-size: 14px;
 }
 
-#copy {
+#orangeButton {
     -fx-background-color: #FF8800;
     -fx-text-fill: white;
 }
 
-#copy:pressed {
+#orangeButton:pressed {
     -fx-background-color: #DD7700;
 }
 
-#generate {
+#blueButton {
     -fx-background-color: #5caeb3;
     -fx-text-fill: white;
 }
 
-#generate:pressed {
+#blueButton:pressed {
     -fx-background-color: #229aa4;
 }

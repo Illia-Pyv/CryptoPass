@@ -7,21 +7,13 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
-public class CommandCopy extends Command {
+public class CommandCopy implements ICommand {
 
     private static final String PARAMETER_REGEX = Regex.ALL_CHARS;
 
-    /**
-     * This is the constructor of this class. It sets the name of this command as
-     * well as the regular expression string.
-     */
-    public CommandCopy() {
-        setParameterRegex(PARAMETER_REGEX);
-    }
-
     @Override
     public String execute(String parameters) {
-        if (matchesRegex(parameters) != -1) {
+        if (parameters.matches(PARAMETER_REGEX)) {
             StringSelection stringSelection = new StringSelection(parameters);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection, null);

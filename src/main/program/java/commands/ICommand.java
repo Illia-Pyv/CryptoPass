@@ -21,12 +21,4 @@ public interface ICommand {
      *                                    wrong
      */
     String execute(String parameters) throws IOException;
-
-    /**
-     * This method sets the multiple regular expressions if needed to store
-     * 
-     * @param parameterRegex the regex of parameters that has to be set for a
-     *                       command
-     */
-    void setParameterRegex(String parameterRegex);
 }
