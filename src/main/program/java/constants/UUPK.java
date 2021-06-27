@@ -7,13 +7,18 @@ package main.program.java.constants;
 public class UUPK {
     private String uupk;
     private static UUPK instance;
-    private static final int UUPK_LENGTH = 16;
-    private static final int MIN_VARIATION = 1;
+    private static final int UUPK_LENGTH = 6;
 
     private UUPK(String uupk) {
         this.uupk = uupk;
     }
 
+    /**
+     * This method returns an instance of this class.
+     *
+     * @param uupk if an instance of this class does not exist yet, then it sets the UUPK string to this parameter
+     * @return Returns an instance of this class
+     */
     public static UUPK getInstance(String uupk) {
         if (instance == null) {
             instance = new UUPK(uupk);
@@ -21,43 +26,38 @@ public class UUPK {
         return instance;
     }
 
+    /**
+     * This method gets the uupk.
+     *
+     * @return Returns the uupk as a string
+     */
     public String getUUPK() {
         return this.uupk;
     }
 
+    /**
+     * This method sets the UUPK.
+     *
+     * @param uupk the string that the UUPK should be set as
+     */
     public void setUUPK(String uupk) {
         this.uupk = uupk;
     }
 
+    /**
+     * This method checks if the UUPK read, is valid.
+     *
+     * @return Returns true if the UUPK is valid and returns false otherwise
+     */
     public boolean isValid() {
-        if (this.uupk == null) {
+        if (this.uupk == null || !(uupk.length() == UUPK_LENGTH)) {
             return false;
         }
-        int length = this.uupk.length();
-        int smallLetters = 0;
-        int capitalLetters = 0;
-        int numbers = 0;
-        int special = 0;
-        if (length < UUPK_LENGTH) {
-            return false;
-        }
-        for (int i = 0; i < length; i++) {
-            String c = String.format("%s", this.uupk.charAt(i));
-            if (c.matches(Regex.SMALL_LETTERS)) {
-                smallLetters++;
-            } else if (c.matches(Regex.CAPITAL_LETTERS)) {
-                capitalLetters++;
-            } else if (c.matches(Regex.NUMBERS)) {
-                numbers++;
-            } else {
-                special++;
+        for (int i = 0; i < this.uupk.length(); i++) {
+            if (!(this.uupk.charAt(i) < '~' && this.uupk.charAt(i) > '!')) {
+                return false;
             }
         }
-
-        if (smallLetters < MIN_VARIATION || capitalLetters < MIN_VARIATION || numbers < MIN_VARIATION || special < MIN_VARIATION) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 }

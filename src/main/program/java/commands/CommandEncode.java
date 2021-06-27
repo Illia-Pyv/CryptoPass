@@ -4,85 +4,88 @@ import main.program.java.constants.Errors;
 import main.program.java.constants.UUPK;
 import main.program.java.core.Enigma;
 import main.program.java.constants.Regex;
+import main.program.java.core.EnigmaSetup;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CommandEncode implements ICommand {
 
-    protected static final String PARAMETER_REGEX = Regex.INPUT_CHARACTERS;
-    protected static final String CHARACTERS = Regex.ROTOR1_CHARACTERS_IN;
+    private Enigma enigma;
+    private ArrayList<Character> charList = new ArrayList<>();
+    private static final int MAX_DEPTH = 2000;
+    private static final int PASS_LENGTH = 16;
 
-    protected static final int MAX_DEPTH = 2000;
-    protected static final int PASS_LENGTH = 16;
+    private int depth;
 
-    protected int depth;
+    public CommandEncode() {
+        enigma = Enigma.getInstance();
+    }
 
     @Override
     public String execute(String parameters) throws IOException {
-        Enigma enigma = new Enigma();
         this.depth = 0;
 
-        if (parameters.matches(PARAMETER_REGEX)) {
-            return encode(enigma, parameters, calculatePosR1(parameters), calculatePosR2(parameters), calculatePosR3(parameters));
+        if (isValid(parameters)) {
+            enigma.setup(new EnigmaSetup(UUPK.getInstance("").getUUPK(), parameters));
+            return encode(parameters);
         } else {
-            throw new IOException(Errors.INVALID_INPUT);
+            if (charList.isEmpty()) {
+                throw new IOException(Errors.EMPTY_INPUT);
+            } else {
+                throw new IOException(String.format(Errors.INVALID_INPUT_CHARS, invalidChars()));
+            }
         }
     }
 
-    protected int calculatePosR1 (String parameters){
-        long uupkHash = calculatePositiveHash(UUPK.getInstance("").getUUPK());
-        long num = calculatePositiveHash(parameters) + uupkHash;
-        return modulo(num, CHARACTERS.length());
-    }
-
-    protected int calculatePosR2 (String parameters){
-        long uupkhash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(UUPK.getInstance("").getUUPK())))));
-        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))))) + uupkhash;
-        return modulo(hash, CHARACTERS.length());
-    }
-
-    protected int calculatePosR3 (String parameters){
-        long uupkHash = calculatePositiveHash(String.format("%s", calculatePositiveHash(UUPK.getInstance("").getUUPK())));
-        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))) + uupkHash;
-        return modulo(hash, CHARACTERS.length());
-    }
-
-    protected int calculatePositiveHash (String parameter){
-        int hash = parameter.hashCode();
-        if (hash < 0) {
-            hash = hash * (-1);
+    private boolean isValid(String parameters) {
+        charList.clear();
+        boolean result = true;
+        if (parameters.length() == 0) {
+            return false;
         }
-        return hash;
+        for (int i = 0; i < parameters.length(); i++) {
+            int c = parameters.charAt(i);
+            if (!(c < '~' && c > '!')) {
+                if (!charList.contains(parameters.charAt(i))) {
+                    charList.add(parameters.charAt(i));
+                }
+                result = false;
+            }
+        }
+        return result;
     }
 
-    protected int modulo(long num1, long mod) {
-        long result;
-        long temp = num1 / mod;
-        result = num1 - (mod * temp);
-        return (int)result;
+    private String invalidChars() {
+        String str = "";
+        for (Character c : charList) {
+            if (!str.equals("")) {
+                str += ", ";
+            }
+            if (c == ' ') {
+                str += "SPACE";
+            } else {
+                str += c;
+            }
+        }
+        return str;
     }
 
-    protected String encode(Enigma enigma, String parameters, int posR1, int posR2, int posR3) {
+    private String encode(String parameters) {
         String result = "";
-        int newPosR1;
-        int newPosR2;
-        int newPosR3;
-        result = enigma.encode(parameters, posR1, posR2, posR3);
+        result = enigma.encode(parameters);
         result = result + calculateSuffix(parameters);
         if (!checkIfDivers(result)) {
             if (depth == MAX_DEPTH) {
                 return result;
             }
             depth++;
-            newPosR1 = enigma.getRotorHeadPos(Enigma.Rotors.R1);
-            newPosR2 = enigma.getRotorHeadPos(Enigma.Rotors.R2);
-            newPosR3 = enigma.getRotorHeadPos(Enigma.Rotors.R3);
-            return encode(enigma, result, newPosR1, newPosR2, newPosR3);
+            return encode(result);
         }
         return result;
     }
 
-    protected boolean checkIfDivers(String encodedMessage) {
+    private boolean checkIfDivers(String encodedMessage) {
         int smallLetters = 0;
         int capitalLetters = 0;
         int numbers = 0;
@@ -108,7 +111,7 @@ public class CommandEncode implements ICommand {
         }
     }
 
-    protected String calculateSuffix(String parameters) {
+    private String calculateSuffix(String parameters) {
         String suffix = "";
         while (!((parameters + suffix).length() >= PASS_LENGTH)) {
             for (int i = 0; i < parameters.length(); i++) {

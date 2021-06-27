@@ -15,7 +15,11 @@ public final class Messages {
     /**
      * This message is written down in the config.txt file.
      */
-    public static final String WARNING = "\nIt seems that you have found your own UUPK.\nIt is strongly recommended not to delete the file or your UUPK,\nas it will resolve in the loss passwords (Unless you wrote your UUPK down and you can sign in.).\nIt's also not recommended to change even one character of your password key,\nas it will change your passwords completely.";
+    public static final String WARNING = "\nIt seems that you have found your own UUPK.\nIt is strongly recommended not to delete the file or your UUPK,\nas it will resolve in the loss of passwords (Unless you wrote your UUPK down and you can sign in.).\nIt's also not recommended to change even one character of your password key,\nas it will change your passwords completely.";
+
+    /**
+     * TODO (Java_Runtime_Environment)README.txt message to let the user know how to install and configurate Java 16.
+     */
 
     // private constructor for utility class
     private Messages() {

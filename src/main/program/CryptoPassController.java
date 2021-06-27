@@ -2,6 +2,8 @@ package main.program;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.scene.Cursor;
+import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,11 +25,19 @@ public class CryptoPassController {
     private Label characterCount;
     @FXML
     private Label notification;
+    @FXML
+    private Tooltip tooltip;
     private static final int CHAR_LIMIT = 100;
+
+    public void onTooltipShown() {
+        tooltip.setShowDelay(Duration.millis(300));
+        tooltip.setShowDuration(Duration.INDEFINITE);
+    }
 
     public void generatePassword(ActionEvent e)  {
         String input = inputField.getText();
         String result = "";
+        notification.setOpacity(0);
         try {
             result = CommandManager.getInstance().run(input, Commands.Encode);
         } catch (IOException exception) {
@@ -72,22 +82,15 @@ public class CryptoPassController {
     }
 
     private void notificationLabelFade(String displayText) {
-        notification.setText(displayText);
-        FadeTransition fadeIn = new FadeTransition();
-        fadeIn.setNode(notification);
-        fadeIn.setDuration(Duration.millis(300));
-        fadeIn.setInterpolator(Interpolator.LINEAR);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-        fadeIn.play();
-
-        FadeTransition fadeOut = new FadeTransition();
-        fadeOut.setNode(notification);
-        fadeOut.setDuration(Duration.millis(300));
-        fadeOut.setInterpolator(Interpolator.LINEAR);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.setDelay(Duration.seconds(1));
-        fadeOut.play();
+        if (notification.getOpacity() == 0) {
+            notification.setText(displayText);
+            FadeTransition fadeIn = new FadeTransition();
+            fadeIn.setNode(notification);
+            fadeIn.setDuration(Duration.millis(300));
+            fadeIn.setInterpolator(Interpolator.LINEAR);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+        }
     }
 }

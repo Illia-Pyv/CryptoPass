@@ -1,2 +1,5 @@
 .idea
 *.iml
+TODO.txt
+/out/
+config.txt

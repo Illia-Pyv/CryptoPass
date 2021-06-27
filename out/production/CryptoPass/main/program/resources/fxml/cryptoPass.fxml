@@ -4,22 +4,25 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/ui.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.program.CryptoPassController">
    <children>
-      <TextField fx:id="inputField" focusTraversable="false" layoutX="50.0" layoutY="97.0" onAction="#generatePassword" onKeyTyped="#checkValidInputLength" prefHeight="32.0" prefWidth="400.0" promptText="Enter to generate Password" styleClass="textField" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0">
+      <TextField fx:id="inputField" focusTraversable="false" layoutX="140.0" layoutY="97.0" onAction="#generatePassword" onKeyTyped="#checkValidInputLength" prefHeight="32.0" prefWidth="365.0" promptText="Enter to generate Password" styleClass="textField" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button id="blueButton" fx:id="generate" layoutX="462.0" layoutY="95.0" mnemonicParsing="false" onAction="#generatePassword" prefHeight="26.0" prefWidth="87.0" text="Generate" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="95.0">
+      <Button id="blueButton" fx:id="generate" layoutX="462.0" layoutY="95.0" mnemonicParsing="false" onAction="#generatePassword" prefHeight="37.0" prefWidth="85.0" text="Generate" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="95.0">
          <font>
             <Font name="OCR A Extended" size="14.0" />
          </font>
       </Button>
-      <TextField fx:id="resultField" depthTest="DISABLE" editable="false" layoutX="50.0" layoutY="175.0" prefHeight="26.0" prefWidth="500.0" promptText="Generated Password" styleClass="textField" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+      <TextField fx:id="resultField" alignment="CENTER" depthTest="DISABLE" editable="false" layoutX="50.0" layoutY="175.0" prefHeight="26.0" prefWidth="500.0" styleClass="textField" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="175.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -27,12 +30,30 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TextField>
-      <Button id="orangeButton" fx:id="copy" alignment="CENTER" layoutX="215.0" layoutY="249.0" mnemonicParsing="false" onAction="#copy" prefHeight="26.0" prefWidth="170.0" text="Copy to Clipboard" AnchorPane.bottomAnchor="100.0">
+      <Button id="orangeButton" fx:id="copy" alignment="CENTER" layoutX="215.0" layoutY="263.0" mnemonicParsing="false" onAction="#copy" prefHeight="26.0" prefWidth="170.0" text="Copy to Clipboard" AnchorPane.bottomAnchor="100.0">
          <font>
             <Font name="OCR A Extended" size="14.0" />
          </font>
       </Button>
-      <Label id="small" fx:id="characterCount" layoutX="418.0" layoutY="132.0" text="0/100" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="132.0" />
-      <Label id="notification" fx:id="notification" alignment="CENTER" contentDisplay="CENTER" layoutX="243.0" layoutY="177.0" prefHeight="26.0" prefWidth="114.0" text="Nothing to copy!" />
+      <Label id="small" fx:id="characterCount" layoutX="419.0" layoutY="132.0" text="0/100" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="132.0" />
+      <Label id="notification" fx:id="notification" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="177.0" prefHeight="26.0" prefWidth="500.0" text="Nothing to copy!" />
+      <Label alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="43.0" layoutY="98.0" prefHeight="35.0" prefWidth="35.0" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="98.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/information.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip fx:id="tooltip" onShown="#onTooltipShown" opacity="0.8" text="Special characters allowed: !&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~" />
+         </tooltip>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
    </children>
 </AnchorPane>

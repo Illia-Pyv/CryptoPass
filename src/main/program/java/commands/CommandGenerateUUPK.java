@@ -1,43 +1,44 @@
 package main.program.java.commands;
 
-import main.program.java.constants.UUPK;
+import main.program.java.constants.Regex;
+import main.program.java.core.Enigma;
+import main.program.java.core.EnigmaSetup;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class CommandGenerateUUPK extends CommandEncode {
-    private String time = null;
+public class CommandGenerateUUPK implements ICommand {
+    private Enigma enigma;
+    private static final int RANDOM_STRING_LENGTH = 6;
 
-    @Override
-    protected int calculatePosR1(String parameters) {
-        time = calculateTime();
-        long timeHash = calculatePositiveHash(time);
-        long num = calculatePositiveHash(parameters) + timeHash;
-        return modulo(num, CHARACTERS.length());
+    public CommandGenerateUUPK() {
+        enigma = Enigma.getInstance();
     }
 
     @Override
-    protected int calculatePosR2(String parameters) {
-        time = calculateTime();
-        long timeHash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(time)))));
-        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))))) + timeHash;
-        return modulo(hash, CHARACTERS.length());
+    public String execute(String parameters) throws IOException {
+        String time = calculateTime();
+        enigma.setup(new EnigmaSetup(randomString(RANDOM_STRING_LENGTH, Regex.INPUT_CHAR_LIST), time));
+        return enigma.encode(time);
     }
 
-    @Override
-    protected int calculatePosR3(String parameters) {
-        time = calculateTime();
-        long timeHash = calculatePositiveHash(String.format("%s", calculatePositiveHash(time)));
-        long hash = calculatePositiveHash(String.format("%s", calculatePositiveHash(parameters))) + timeHash;
-        return modulo(hash, CHARACTERS.length());
+    private String randomString(int stringLength, ArrayList<Character> list) {
+        String result = "";
+        int max = list.size() - 1;
+        int min = 0;
+        int random = 0;
+        for (int i = 0; i < stringLength; i++) {
+            random = (int) (Math.random() * (max - min + 1) + min);
+            result += list.get(random);
+        }
+        return result;
     }
 
     private String calculateTime() {
-        if (time == null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:ms");
-            Date date = new Date();
-            return formatter.format(date);
-        }
-        return time;
+        SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
+        Date date = new Date();
+        return formatter.format(date);
     }
 }

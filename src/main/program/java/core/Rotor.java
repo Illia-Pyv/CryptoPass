@@ -5,7 +5,13 @@ import java.util.ArrayList;
 public class Rotor {
 
     private ArrayList<String> rotorCharacters = new ArrayList<>();
+    /**
+     * Input pin of this rotor.
+     */
     public static final int IN = 0;
+    /**
+     * Output pin of this rotor.
+     */
     public static final int OUT = 1;
     private int head;
 
@@ -20,10 +26,6 @@ public class Rotor {
     }
 
     public int getHead() { return this.head; }
-
-    public long getAmountOfCharacters() {
-        return rotorCharacters.get(IN).length();
-    }
 
     public void rotate() {
         if (this.head == rotorCharacters.get(IN).length() - 1) {
@@ -46,6 +48,8 @@ public class Rotor {
 
     /**
      * This method calculates the position of a character on this rotor, relative to the position of the head.
+     *
+     * TODO rework this method, has a few unused variables
      *
      * @return The relative position of the character as an integer
      */

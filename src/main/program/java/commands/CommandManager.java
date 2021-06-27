@@ -41,6 +41,6 @@ public class CommandManager {
     public enum Commands{
         Encode,
         Copy,
-        GenerateUUPK
+        GenerateUUPK,
     }
 }

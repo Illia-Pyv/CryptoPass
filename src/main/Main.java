@@ -7,7 +7,6 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Change the directory where the config file will be saved
         String currentDir = System.getProperty("user.dir") + "/config.txt";
         boolean noFile = false;
         try {
@@ -16,7 +15,6 @@ public class Main {
             reader.close();
         } catch (FileNotFoundException e) {
             noFile = true;
-            System.out.println("NO file");
         } catch (IOException exception) {
             exception.printStackTrace();
         }
