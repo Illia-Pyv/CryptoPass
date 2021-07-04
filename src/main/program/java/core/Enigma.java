@@ -19,13 +19,13 @@ public class Enigma {
         return instance;
     }
 
-    public void setup(EnigmaSetup setup) {
-        r1 = setup.getR1();
-        r2 = setup.getR2();
-        r3 = setup.getR3();
-        r1.setHead(setup.getR1Head());
-        r2.setHead(setup.getR2Head());
-        r3.setHead(setup.getR3Head());
+    public void setup(EnigmaSetup enigmaSetup) {
+        r1 = enigmaSetup.getR1();
+        r2 = enigmaSetup.getR2();
+        r3 = enigmaSetup.getR3();
+        r1.setHead(enigmaSetup.getR1Head());
+        r2.setHead(enigmaSetup.getR2Head());
+        r3.setHead(enigmaSetup.getR3Head());
     }
 
     public String encode(String parameters) {
@@ -47,19 +47,19 @@ public class Enigma {
         int temp;
         char result = 0;
         int positionOfInputChar = Regex.INPUT_CHAR_LIST.indexOf(character);
-        temp = sendForwardThrough(r1,positionOfInputChar);
+        temp = r1.encodeChar(positionOfInputChar);
         rotateRotors();
-        temp = sendForwardThrough(r2,temp);
+        temp = r2.encodeChar(temp);
         rotateRotors();
-        temp = sendForwardThrough(r3,temp);
+        temp = r3.encodeChar(temp);
         rotateRotors();
-        temp = sendBackwardThrough(r3,temp);
+        temp = r3.encodeChar(temp);
         rotateRotors();
-        temp = sendBackwardThrough(r2,temp);
+        temp = r2.encodeChar(temp);
         rotateRotors();
-        temp = sendBackwardThrough(r1,temp);
+        temp = r1.encodeChar(temp);
         rotateRotors();
-        result = r1.getCharacterByPosition(temp, Rotor.IN);
+        result = Regex.INPUT_CHAR_LIST.get(temp);
         return result;
     }
 
@@ -72,13 +72,4 @@ public class Enigma {
             r3.rotate();
         }
     }
-
-    private int sendForwardThrough(Rotor rotor, int inputPosition) {
-        return rotor.getOutCharactersRelativePos(rotor.getOutChar(rotor.getCharacterByPosition(inputPosition, Rotor.IN), Rotor.IN),Rotor.IN);
-    }
-
-    private int sendBackwardThrough(Rotor rotor, int inputPosition) {
-        return rotor.getOutCharactersRelativePos(rotor.getOutChar(rotor.getCharacterByPosition(inputPosition, Rotor.OUT), Rotor.OUT),Rotor.OUT);
-    }
-
 }

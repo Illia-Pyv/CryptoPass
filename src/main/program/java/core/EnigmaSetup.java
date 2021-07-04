@@ -49,8 +49,8 @@ public class EnigmaSetup {
     }
 
     private void calculateNewRotors(String uupk) {
-        String in = "";
-        String out = "";
+        ArrayList<Character> in = new ArrayList<>();
+        ArrayList<Character> out = new ArrayList<>();
         ArrayList<Rotor> rotorList = new ArrayList<>();
         for (int i = 0; i < uupk.length(); i++) {
             char c = uupk.charAt(i);
@@ -70,15 +70,15 @@ public class EnigmaSetup {
         r3 = list.get(2);
     }
 
-    private String shuffle(char someChar, ArrayList<Character> charList) {
-        String result = "";
+    private ArrayList<Character> shuffle(char someChar, ArrayList<Character> charList) {
+        ArrayList<Character> result = new ArrayList<>();
         int num = someChar;
         int index;
         int iterator = num;
         ArrayList<Character> copy = new ArrayList<>(charList);
         while (!copy.isEmpty()) {
             index = (iterator % copy.size());
-            result += copy.get(index);
+            result.add(copy.get(index));
             num++;
             iterator += num;
             copy.remove(index);

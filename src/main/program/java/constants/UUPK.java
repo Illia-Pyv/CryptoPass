@@ -54,7 +54,7 @@ public class UUPK {
             return false;
         }
         for (int i = 0; i < this.uupk.length(); i++) {
-            if (!(this.uupk.charAt(i) < '~' && this.uupk.charAt(i) > '!')) {
+            if (!(this.uupk.charAt(i) <= '~' && this.uupk.charAt(i) >= '!')) {
                 return false;
             }
         }

@@ -18,8 +18,6 @@ public class Main {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        System.out.println(UUPK.getInstance("").getUUPK());
-
         GUI.main(args, noFile);
     }
 }

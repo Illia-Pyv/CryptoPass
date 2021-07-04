@@ -3,6 +3,7 @@ package main.program;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
@@ -27,7 +28,14 @@ public class CryptoPassController {
     private Label notification;
     @FXML
     private Tooltip tooltip;
-    private static final int CHAR_LIMIT = 100;
+    @FXML
+    private Button copyButton;
+    private static final int CHAR_LIMIT = 32;
+    private static final String CHARACTER_COUNT_LABEL = "/" + CHAR_LIMIT;
+
+    public void initialize() {
+        characterCount.setText("0" + CHARACTER_COUNT_LABEL);
+    }
 
     public void onTooltipShown() {
         tooltip.setShowDelay(Duration.millis(300));
@@ -40,8 +48,10 @@ public class CryptoPassController {
         notification.setOpacity(0);
         try {
             result = CommandManager.getInstance().run(input, Commands.Encode);
+            copyButton.setDisable(false);
         } catch (IOException exception) {
-            notificationLabelFade(exception.getMessage());
+            result = exception.getMessage();
+            copyButton.setDisable(true);
         }
         resultField.setText(result);
     }
@@ -66,17 +76,19 @@ public class CryptoPassController {
             }
             inputField.setText(hundredChars);
             inputField.positionCaret(textInput.length());
-            notificationLabelFade(Errors.TOO_MANY_PARAMETERS);
+            if (textInput.length() > CHAR_LIMIT) {
+                notificationLabelFade(Errors.TOO_MANY_PARAMETERS);
+            }
         }
         updateCharacterCountLabelText(textInput.length());
     }
 
     private void updateCharacterCountLabelText(int textLength) {
-        String labelText = "/" + CHAR_LIMIT;
+        String labelText = "";
         if (textLength > CHAR_LIMIT) {
-            labelText = CHAR_LIMIT + labelText;
+            labelText = CHAR_LIMIT + CHARACTER_COUNT_LABEL;
         } else {
-            labelText = textLength + labelText;
+            labelText = textLength + CHARACTER_COUNT_LABEL;
         }
         characterCount.setText(labelText);
     }
@@ -91,6 +103,15 @@ public class CryptoPassController {
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
             fadeIn.play();
+
+            FadeTransition fadeOut = new FadeTransition();
+            fadeOut.setNode(notification);
+            fadeOut.setDuration(Duration.millis(300));
+            fadeOut.setInterpolator(Interpolator.LINEAR);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.setDelay(Duration.seconds(1));
+            fadeOut.play();
         }
     }
 }

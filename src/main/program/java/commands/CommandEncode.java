@@ -46,7 +46,7 @@ public class CommandEncode implements ICommand {
         }
         for (int i = 0; i < parameters.length(); i++) {
             int c = parameters.charAt(i);
-            if (!(c < '~' && c > '!')) {
+            if (!(c <= '~' && c >= '!')) {
                 if (!charList.contains(parameters.charAt(i))) {
                     charList.add(parameters.charAt(i));
                 }
@@ -74,7 +74,9 @@ public class CommandEncode implements ICommand {
     private String encode(String parameters) {
         String result = "";
         result = enigma.encode(parameters);
-        result = result + calculateSuffix(parameters);
+        if (result.length() < PASS_LENGTH) {
+            return encode(result + calculateSuffix(parameters));
+        }
         if (!checkIfDivers(result)) {
             if (depth == MAX_DEPTH) {
                 return result;

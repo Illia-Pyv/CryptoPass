@@ -30,12 +30,12 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TextField>
-      <Button id="orangeButton" fx:id="copy" alignment="CENTER" layoutX="215.0" layoutY="263.0" mnemonicParsing="false" onAction="#copy" prefHeight="26.0" prefWidth="170.0" text="Copy to Clipboard" AnchorPane.bottomAnchor="100.0">
+      <Button id="orangeButton" fx:id="copyButton" alignment="CENTER" layoutX="215.0" layoutY="263.0" mnemonicParsing="false" onAction="#copy" prefHeight="26.0" prefWidth="170.0" text="Copy to Clipboard" AnchorPane.bottomAnchor="100.0">
          <font>
             <Font name="OCR A Extended" size="14.0" />
          </font>
       </Button>
-      <Label id="small" fx:id="characterCount" layoutX="419.0" layoutY="132.0" text="0/100" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="132.0" />
+      <Label id="small" fx:id="characterCount" layoutX="419.0" layoutY="132.0" text="0/28" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="132.0" />
       <Label id="notification" fx:id="notification" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="177.0" prefHeight="26.0" prefWidth="500.0" text="Nothing to copy!" />
       <Label alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="43.0" layoutY="98.0" prefHeight="35.0" prefWidth="35.0" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="98.0">
          <graphic>
