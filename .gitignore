@@ -1,5 +1,5 @@
 .idea
 *.iml
 TODO.txt
-/out/
+out
 config.txt

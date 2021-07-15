@@ -30,7 +30,7 @@ public class CryptoPassController {
     private Tooltip tooltip;
     @FXML
     private Button copyButton;
-    private static final int CHAR_LIMIT = 32;
+    private static final int CHAR_LIMIT = 28;
     private static final String CHARACTER_COUNT_LABEL = "/" + CHAR_LIMIT;
 
     public void initialize() {
