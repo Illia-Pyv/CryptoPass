@@ -12,9 +12,9 @@
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label id="important" fx:id="uupk" alignment="CENTER" layoutX="286.0" layoutY="89.0" text="ABCDEFGH12345678" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+      <Label id="important" fx:id="uupk" alignment="CENTER" layoutX="286.0" layoutY="89.0" text="ABCDEFGH0O12345678IlL" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
       <Label layoutX="50.0" layoutY="150.0" text="WARNING! Please take to consideration that losing your UUPK means losing all your passwords (Unless you wrote all of them down). Please write your UUPK on a piece of paper or better in a special notebook and remember where you put it." textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">

@@ -32,9 +32,14 @@ public final class Regex {
     public static final String NUMBERS = "[0-9]";
 
     /**
-     *
+     * List of all available characters.
      */
     public static final ArrayList<Character> INPUT_CHAR_LIST = calculateInputCharList('!','~');
+
+    /**
+     * The path to the users account uupk.
+     */
+    public static final String ACCOUNT_PATH = System.getProperty("user.dir") + "/config.crpt";
 
     // private constructor in a utility class
     private Regex() {

@@ -1,13 +1,14 @@
 package main;
 
 import main.program.GUI;
+import main.program.java.constants.Regex;
 import main.program.java.constants.UUPK;
 
 import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        String currentDir = System.getProperty("user.dir") + "/config.txt";
+        String currentDir = Regex.ACCOUNT_PATH;
         boolean noFile = false;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(currentDir));

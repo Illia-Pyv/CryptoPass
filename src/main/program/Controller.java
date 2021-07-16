@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.program.java.constants.Messages;
+import main.program.java.constants.Regex;
 import main.program.java.constants.UUPK;
 
 import java.io.BufferedWriter;
@@ -22,8 +23,9 @@ public abstract class Controller {
     }
 
     protected void saveToFile() throws IOException {
-        String currentDir = System.getProperty("user.dir") + "/config.txt";
+        String currentDir = Regex.ACCOUNT_PATH;
         BufferedWriter writer = new BufferedWriter(new FileWriter(currentDir));
+        Runtime.getRuntime().exec("attrib +H " + currentDir);
         writer.write(UUPK.getInstance("").getUUPK());
         writer.write("\n" + Messages.WARNING);
         writer.close();
