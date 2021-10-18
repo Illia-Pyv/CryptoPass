@@ -1,3 +1,6 @@
+# Disclaimer>
+You will need to have Java 16 installed on your computer and set is as an environment variable. There are plenty of tutorials on that online.
+
 # Download
 To download CryptoPass, go to releases on the right and then select the latest release.
 1. Now download the CryptoPass.zip (You don't need those other two files they are for the source code).
@@ -13,9 +16,5 @@ To download CryptoPass, go to releases on the right and then select the latest r
      
    - The uninstall.bat is pretty self-explanatory innit?
      But note that uninstall.bat only works if you have set it up with setup.bat before.
-     
-And also you will need to have Java 16 installed on your computer and set is as an environment variable.
-You will find a lot of tutorials on that online. I will meanwhile try to write a batch file that handles that
-in a future release.
      
 # And now have fun with CryptoPass!!!
