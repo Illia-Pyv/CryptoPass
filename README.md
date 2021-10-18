@@ -1,4 +1,4 @@
-# Disclaimer>
+# Before you proceed
 You will need to have Java 16 installed on your computer and set is as an environment variable. There are plenty of tutorials on that online.
 
 # Download
